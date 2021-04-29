@@ -4,6 +4,52 @@ from termcolor import colored
 
 from constants import NITFY_50_PAYLOAD
 
+def get_stock_data_for_one_day(stock_name):
+    duration = colored("1 Day", 'white')
+    response = requests.get(f"https://api.tickertape.in/search?text={stock_name}&types=stock")
+    json_data = response.json()
+
+    try:
+        total_stocks_found = json_data["data"]["total"]
+    except:
+        total_stocks_found = 0
+
+    if total_stocks_found == 0:
+        return None, None, None
+
+    try:
+        stock_data = json_data["data"]["stocks"][0]
+        full_stock_name = stock_data["name"]
+        sector = stock_data["sector"]
+        stock_quote = stock_data["quote"]
+
+        previous_close = round(stock_quote["close"], 2)
+        price = round(stock_quote["price"], 2)
+        sid = stock_quote["sid"]
+        high = round(stock_quote["high"], 2)
+        low = round(stock_quote["low"], 2)
+
+        one_day_return = round((price - previous_close) / (previous_close) * 100, 2)
+
+        if one_day_return < 0:
+            one_day_return = colored(one_day_return, 'red', attrs=['blink'])
+        else:
+            one_day_return = colored(one_day_return, 'green')
+
+        data = [
+            duration,
+            colored(price, 'magenta'),
+            colored(previous_close, "yellow"),
+            high,
+            low,
+            one_day_return
+        ]
+
+        return sid, full_stock_name, sector, data
+    except:
+        return None, None, None
+
+
 def get_nifty_50_data():
     headers = {'content-type': 'application/json;charset=UTF-8'}
     try:
