@@ -1,6 +1,8 @@
 import click
 from termcolor import colored
 
+from stocks import get_nifty_50_data
+
 
 @click.group()
 def main():
@@ -14,6 +16,9 @@ def nifty_50(nifty50):
     """
     print()
     print(f"{colored('Nifty 50', 'red')}".center(110))
+    nifty_50_table = get_nifty_50_data()
+    if nifty_50_table is not None:
+        print(nifty_50_table)
     return
 
 if __name__ == "__main__":
