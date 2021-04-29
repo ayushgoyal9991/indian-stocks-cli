@@ -9,6 +9,18 @@ def main():
     pass
 
 @main.command()
+@click.argument("stock_name", nargs = 1)
+def ticker(stock_name):
+    """
+    Usage: python main.py ticker <ticker_name_without_spaces>
+    Example: python main.py ticker State-Bank-Of-India
+    """
+    print(stock_name)
+    return
+
+
+#  get nifty-50 data
+@main.command()
 @click.option("--nifty50")
 def nifty_50(nifty50):
     """
