@@ -49,6 +49,44 @@ def get_stock_data_for_one_day(stock_name):
     except:
         return None, None, None
 
+def get_stock_data_by_duration(stock_sid, duration):
+    response = requests.get(f"https://api.tickertape.in/stocks/charts/inter/{stock_sid}?duration={duration}")
+    json_data = response.json()
+
+    stock_data = json_data["data"][0]
+    high = round(stock_data["h"], 2)
+    low = round(stock_data["l"], 2)
+    previous_close = round(stock_data["points"][0]["lp"], 2)
+    price = round(stock_data["points"][-1]["lp"], 2)
+    percentage_return = round(stock_data["r"], 2)
+
+    if percentage_return < 0:
+        percentage_return = colored(percentage_return, 'red', attrs=['blink'])
+    else:
+        percentage_return = colored(percentage_return, 'green')
+
+    investment_duration = duration
+
+    if duration == "1w":
+        investment_duration = colored("1 Week", "white")
+    elif duration == "1mo":
+        investment_duration = colored("1 Month", "white")
+    elif duration == "1y":
+        investment_duration = colored("1 Year", "white")
+    elif duration == "5y":
+        investment_duration = colored("5 Years", "white")
+
+    data = [
+        investment_duration,
+        colored(price, "magenta"),
+        colored(previous_close, "yellow"),
+        high,
+        low,
+        percentage_return
+    ]
+
+    return data
+
 
 def get_nifty_50_data():
     headers = {'content-type': 'application/json;charset=UTF-8'}
