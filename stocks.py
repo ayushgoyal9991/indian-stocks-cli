@@ -88,6 +88,12 @@ def get_stock_data_by_duration(stock_sid, duration):
 
     return data
 
+def get_stock_data_table_for_a_list_of_stocks(stock_names):
+    for stock_name in stock_names:
+        stock_data_table = get_stock_data_table(stock_name)
+        if stock_data_table is not None:
+            print(stock_data_table)
+
 def get_stock_data_table(stock_name):
     row_list = []
     duration_header = colored("Duration", 'cyan')

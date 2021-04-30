@@ -1,7 +1,7 @@
 import click
 from termcolor import colored
 
-from stocks import get_nifty_50_data, get_stock_data_table
+from stocks import get_nifty_50_data, get_stock_data_table, get_stock_data_table_for_a_list_of_stocks
 
 
 @click.group()
@@ -16,7 +16,7 @@ def ticker(stock_name):
     Usage: python main.py ticker <ticker_name_without_spaces>
     Example: python main.py ticker State-Bank-Of-India
     """
-    print(f"Getting data for {stock_name} stock.......")
+    print(f"Getting stock data of {stock_name}!")
     stock_data_table = get_stock_data_table(stock_name)
     if stock_data_table is not None:
         print(stock_data_table)
@@ -31,7 +31,8 @@ def tickers(stock_names):
         Example: python main.py tickers Reliance Wipro TCS
     """
     stock_names = list(stock_names)
-    print(stock_names)
+    print(f"Getting stock data of {stock_names}!")
+    get_stock_data_table_for_a_list_of_stocks(stock_names)
     return
 
 #  get nifty-50 data
