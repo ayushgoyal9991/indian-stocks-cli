@@ -25,7 +25,14 @@ def ticker(stock_name, annualanalysis, quarteranalysis):
         print(stock_data_table)
 
     if annualanalysis:
-        print(f"Annual Analysis of {stock_name}")
+        annual_analysis_table = get_annual_growth_stock_data(stock_name)
+        if annual_analysis_table is not None:
+            annual_analysis = click.style("Annual Analysis", fg='red', bold=True)
+            print()
+            print(f"{annual_analysis}".center(90))
+            print(annual_analysis_table)
+        else:
+            print(f"Annual analysis for {stock_name} not found")
 
     if quarteranalysis:
         quarter_analysis_table = get_quarterly_growth_stock_data(stock_name)

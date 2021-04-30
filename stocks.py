@@ -235,7 +235,6 @@ def get_annual_growth_stock_data(stock_name):
         myTable.add_row(['', '', '', '', ''])
     return myTable
 
-
 def get_quarterly_growth_stock_data(stock_name):
     stock_id, full_stock_name, sector, row_data = get_stock_data_for_one_day(stock_name = stock_name)
     response = requests.get(f"https://api.tickertape.in/stocks/financials/income/{stock_id}/interim/growth?count=10")
