@@ -1,5 +1,10 @@
 # CLI Tool for Indian Stocks
 ![indian-stocks-cli](https://socialify.git.ci/skamranahmed/indian-stocks-cli/image?description=1&language=1&owner=1&pattern=Floating%20Cogs&theme=Light)
+
+<p align="center">
+<img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white" align="center">
+</p>
+
 ## Demo
 
 #### To get Nifty-50 data:
