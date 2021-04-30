@@ -8,6 +8,7 @@ from stocks import get_nifty_50_data, get_stock_data_table
 def main():
     pass
 
+#  get stock data of a single company
 @main.command()
 @click.argument("stock_name", nargs = 1)
 def ticker(stock_name):
@@ -21,6 +22,17 @@ def ticker(stock_name):
         print(stock_data_table)
     return
 
+#  get stock data of multiple companies
+@main.command()
+@click.argument("stock_names", nargs = -1)
+def tickers(stock_names):
+    """
+        Usage: python main.py tickers <ticker_name_1_without_spaces> <ticker_name_2_without_spaces> ......
+        Example: python main.py tickers Reliance Wipro TCS
+    """
+    stock_names = list(stock_names)
+    print(stock_names)
+    return
 
 #  get nifty-50 data
 @main.command()
