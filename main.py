@@ -2,7 +2,7 @@ import click
 from termcolor import colored
 
 from stocks import get_nifty_50_data, get_stock_data_table, get_stock_data_table_for_a_list_of_stocks, \
-    get_quarterly_growth_stock_data
+    get_quarterly_growth_stock_data, get_annual_growth_stock_data
 
 
 @click.group()
@@ -12,8 +12,9 @@ def main():
 #  get stock data of a single company
 @main.command()
 @click.argument("stock_name", nargs = 1)
+@click.option("--annualanalysis", "-aa", is_flag = True, type = bool)
 @click.option("--quarteranalysis", "-qa", is_flag = True, type = bool)
-def ticker(stock_name, quarteranalysis):
+def ticker(stock_name, annualanalysis, quarteranalysis):
     """
     Usage: python main.py ticker <ticker_name_without_spaces>
     Example: python main.py ticker State-Bank-Of-India
@@ -22,6 +23,9 @@ def ticker(stock_name, quarteranalysis):
     stock_data_table = get_stock_data_table(stock_name)
     if stock_data_table is not None:
         print(stock_data_table)
+
+    if annualanalysis:
+        print(f"Annual Analysis of {stock_name}")
 
     if quarteranalysis:
         quarter_analysis_table = get_quarterly_growth_stock_data(stock_name)
