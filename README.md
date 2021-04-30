@@ -1,7 +1,5 @@
 # CLI Tool for Indian Stocks
-
-A command line tool that gives you real time information about Indian Stocks.
-
+![indian-stocks-cli](https://socialify.git.ci/skamranahmed/indian-stocks-cli/image?description=1&language=1&owner=1&pattern=Floating%20Cogs&theme=Light)
 ## Demo
 
 #### To get Nifty-50 data:
