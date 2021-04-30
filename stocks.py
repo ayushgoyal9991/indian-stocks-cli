@@ -1,3 +1,4 @@
+import click
 import requests
 from prettytable import PrettyTable
 from termcolor import colored
@@ -87,6 +88,47 @@ def get_stock_data_by_duration(stock_sid, duration):
 
     return data
 
+def get_stock_data_table(stock_name):
+    row_list = []
+    duration_header = colored("Duration", 'cyan')
+    price_header = colored("Price (INR)", 'cyan')
+    prev_close_header = colored("Previous Close (INR)", 'cyan')
+    high_header = colored("High (INR)", 'cyan')
+    low_header = colored("Low (INR)", 'cyan')
+    percentage_return_header = colored("% Return", 'cyan')
+    myTable = PrettyTable(
+        [duration_header, price_header, prev_close_header, high_header, low_header, percentage_return_header])
+
+    stock_id, full_stock_name, sector, row_data = get_stock_data_for_one_day(stock_name = stock_name)
+    if stock_id is None:
+        stock_ticker_name = colored(stock_name, 'red')
+        print(f"No data found for stock ticker name '{stock_ticker_name}'")
+        return
+
+    row_list.append(row_data)
+
+    row_data = get_stock_data_by_duration(stock_sid = stock_id, duration = "1w")
+    row_list.append(row_data)
+
+    row_data = get_stock_data_by_duration(stock_sid = stock_id, duration = "1mo")
+    row_list.append(row_data)
+
+    row_data = get_stock_data_by_duration(stock_sid = stock_id, duration = "1y")
+    row_list.append(row_data)
+
+    row_data = get_stock_data_by_duration(stock_sid = stock_id, duration = "5y")
+    row_list.append(row_data)
+
+    full_stock_name = click.style(full_stock_name, fg = 'red', bold = True)
+    stock_sector = click.style(f"Sector - {sector}", fg = 'yellow', bold = True)
+    print()
+    print(f"{full_stock_name}".center(90))
+    print(f"{stock_sector}".center(90))
+    for row in row_list:
+        myTable.add_row(row)
+        myTable.add_row(['', '', '', '', '', ''])
+
+    return myTable
 
 def get_nifty_50_data():
     headers = {'content-type': 'application/json;charset=UTF-8'}
