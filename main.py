@@ -1,7 +1,8 @@
 import click
 from termcolor import colored
 
-from stocks import get_nifty_50_data, get_stock_data_table, get_stock_data_table_for_a_list_of_stocks
+from stocks import get_nifty_50_data, get_stock_data_table, get_stock_data_table_for_a_list_of_stocks, \
+    get_quarterly_growth_stock_data
 
 
 @click.group()
@@ -23,9 +24,14 @@ def ticker(stock_name, quarteranalysis):
         print(stock_data_table)
 
     if quarteranalysis:
-        quarterly_analysis = click.style("Quarterly Analysis", fg = 'red', bold = True)
-        print()
-        print(f"{quarterly_analysis}".center(90))
+        quarter_analysis_table = get_quarterly_growth_stock_data(stock_name)
+        if quarter_analysis_table is not None:
+            quarterly_analysis = click.style("Quarterly Analysis", fg='red', bold=True)
+            print()
+            print(f"{quarterly_analysis}".center(90))
+            print(quarter_analysis_table)
+        else:
+            print(f"Quarter analysis for {stock_name} not found")
 
     return
 
