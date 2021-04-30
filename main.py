@@ -11,7 +11,8 @@ def main():
 #  get stock data of a single company
 @main.command()
 @click.argument("stock_name", nargs = 1)
-def ticker(stock_name):
+@click.option("--quarteranalysis", "-qa", is_flag = True, type = bool)
+def ticker(stock_name, quarteranalysis):
     """
     Usage: python main.py ticker <ticker_name_without_spaces>
     Example: python main.py ticker State-Bank-Of-India
@@ -20,6 +21,12 @@ def ticker(stock_name):
     stock_data_table = get_stock_data_table(stock_name)
     if stock_data_table is not None:
         print(stock_data_table)
+
+    if quarteranalysis:
+        quarterly_analysis = click.style("Quarterly Analysis", fg = 'red', bold = True)
+        print()
+        print(f"{quarterly_analysis}".center(90))
+
     return
 
 #  get stock data of multiple companies

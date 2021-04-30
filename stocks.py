@@ -183,3 +183,49 @@ def get_nifty_50_data():
         index += 1
 
     return myTable
+
+def get_quarterly_growth_stock_data(stock_name):
+    stock_id, full_stock_name, sector, row_data = get_stock_data_for_one_day(stock_name = stock_name)
+    response = requests.get(f"https://api.tickertape.in/stocks/financials/income/{stock_id}/interim/growth?count=10")
+    json_data = response.json()
+    last_four_quarters_data = json_data["data"][-4:]
+    eps_growth_data = [colored("EPS Growth (%)", "yellow")]
+    net_income_growth_data = [colored("Net Income Growth (%)", "yellow")]
+    quarter_name = []
+
+    for quarter_data in last_four_quarters_data:
+        eps = round(quarter_data["qIncEps"], 2)
+        net_income = round(quarter_data["qIncNinc"], 2)
+        quarter_period = quarter_data["displayPeriod"].replace(" ", "")
+
+        if eps < 0:
+            eps = colored(eps, 'red')
+        else:
+            eps = colored(eps, 'green')
+
+        if net_income < 0:
+            net_income = colored(net_income, 'red')
+        else:
+            net_income = colored(net_income, 'green')
+
+        eps_growth_data.append(eps)
+        net_income_growth_data.append(net_income)
+        quarter_name.append(quarter_period)
+
+    row_list = []
+    quarter_header = colored("Quarter", 'cyan')
+    q_name_1 = colored(quarter_name[0], 'cyan')
+    q_name_2 = colored(quarter_name[1], 'cyan')
+    q_name_3 = colored(quarter_name[2], 'cyan')
+    q_name_4 = colored(quarter_name[3], 'cyan')
+    myTable = PrettyTable(
+        [quarter_header, q_name_1, q_name_2, q_name_3, q_name_4])
+
+    row_list.append(eps_growth_data)
+    row_list.append(net_income_growth_data)
+
+    for row in row_list:
+        myTable.add_row(row)
+        myTable.add_row(['', '', '', '', ''])
+
+    return myTable
