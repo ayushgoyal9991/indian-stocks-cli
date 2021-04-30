@@ -4,13 +4,13 @@ A command line tool that gives you real time information about Indian Stocks.
 
 ## Demo
 
-To get Nifty-50 data:
+#### To get Nifty-50 data:
 ```bash
   python3 main.py nifty-50
 ```
 ![nifty-50]
 
-To get the stock data of a single company:
+#### To get the stock data of a single company:
 ```bash
   python3 main.py ticker <comapny_name_without_spaces>
 ```
@@ -20,7 +20,7 @@ Example:
 ```
 ![single-stock-data]
 
-To get the stock data of multiple companies:
+#### To get the stock data of multiple companies:
 ```bash
   python3 main.py tickers <comapny_name1_without_spaces> <company_name2_without_spaces>
 ```
@@ -30,7 +30,7 @@ Example:
 ```
 ![multiple-stock-data]
 
-To get the stock data of a company including the annual analysis:
+#### To get the stock data of a company including the annual analysis:
 ```bash
   python3 main.py ticker <comapny_name_without_spaces> -aa
 ```
@@ -40,7 +40,7 @@ Example:
 ```
 ![annual-analysis]
 
-To get the stock data of a company including the quarterly analysis:
+#### To get the stock data of a company including the quarterly analysis:
 ```bash
   python3 main.py ticker <comapny_name_without_spaces> -qa
 ```
@@ -50,7 +50,7 @@ Example:
 ```
 ![quarterly-analysis]
 
-To get the stock data of a company including both the analysis:
+#### To get the stock data of a company including both the analysis:
 ```bash
   python3 main.py ticker <comapny_name_without_spaces> -aa -qa
 ```
