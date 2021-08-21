@@ -49,7 +49,7 @@ Example:
 ```
 Example:
 ```bash
-  python3 main.py ticker Titan -aa
+  python3 main.py ticker Titan -qa
 ```
 ![quarterly-analysis]
 
